@@ -27,13 +27,13 @@ This project evaluates classical machine learning models for EEG-based stress cl
 ## Project Structure
 
 ```
-├── index.html                      # Project website (GitHub Pages)
+├── index.html                      # Project website (HTML)
 ├── src/
 │   ├── preprocessing.py            # EEG signal preprocessing
 │   ├── feature_extraction.py       # Statistical feature extraction
-│   └── eeg_classification.py       # Classification pipeline (demo)
+│   └── eeg_classification.py       # Classification pipeline 
 ├── results/
-│   └── summary.csv                 # Aggregated results
+│   └── summary.csv                 #  results
 ├── requirements.txt
 └── README.md
 ```
