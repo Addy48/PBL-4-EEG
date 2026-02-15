@@ -19,9 +19,7 @@ Each CSV: rows = samples, columns = extracted EEG features (14 channels x 10 fea
 Usage:
     python eeg_classification.py --data_path /path/to/dataset --results_path /path/to/results
 
-Authors: Prakriti Sharma, Aaditya Upadhyay
-Guide: Dr. Akshay Jadhav
-Manipal University Jaipur, 2026
+
 """
 
 import os
