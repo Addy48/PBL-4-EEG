@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBL Presentation | 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #timerContainer { background: #ffffff; color: #020617; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 3px solid #3b82f6; z-index: 1000; }
+        @keyframes flicker { 0%, 100% { background-color: #ffffff; } 50% { background-color: #fca5a5; } }
+        .timer-warning { animation: flicker 1s infinite; border: 3px solid #ef4444 !important; color: #b91c1c !important; }
+        .timer-stop { background-color: #991b1b !important; color: #ffffff !important; border: 3px solid #f87171 !important; animation: none; }
+        .stat-card { transition: transform 0.3s ease; }
+        .stat-card:hover { transform: translateY(-4px); }
+        table.rt { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        table.rt th { padding: 10px 8px; text-align: center; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        table.rt td { padding: 8px; text-align: center; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        table.rt tr.hl { background: rgba(59, 130, 246, 0.08); }
+        table.rt td.mn { text-align: left; font-weight: 700; color: #e2e8f0; }
+        table.rt td.best { color: #60a5fa; font-weight: 800; }
+    </style>
+</head>
+<body onload="startTimer()">
+    <div id="timerContainer" class="fixed bottom-10 right-10 px-8 py-4 rounded-3xl flex items-center gap-4 transition-all">
+        <i class="fas fa-hourglass-start text-blue-600 text-2xl" id="timerIcon"></i>
+        <span id="displayTime" class="text-4xl font-black font-mono tracking-tighter">00:00</span>
+    </div>
+    <nav class="fixed w-full z-50 glass border-b border-slate-800/50 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="bg-white p-1 rounded flex items-center justify-center shadow-md" style="height:48px;width:48px;">
+                <img src="mujlogo.jpg" alt="MUJ" class="h-full w-auto object-contain" onerror="this.src='https://via.placeholder.com/50?text=MUJ'">
+            </div>
+            <div class="flex flex-col text-left">
+                <span class="text-xl font-black text-white leading-none uppercase tracking-tighter">PBL <span class="text-blue-500 italic">2026</span></span>
+                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Dept. of Computer Science &amp; Engineering</span>
+            </div>
+        </div>
+        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-bold opacity-70">
+            <a href="#problem" class="hover:text-blue-400 transition">Problem</a>
+            <a href="#methodology" class="hover:text-blue-400 transition">Methodology</a>
+            <a href="#results" class="hover:text-blue-400 transition">Results</a>
+            <a href="#stats" class="hover:text-blue-400 transition">Statistics</a>
+            <a href="#team" class="hover:text-blue-400 transition">Team</a>
+        </div>
+    </nav>
+    <main class="max-w-6xl mx-auto px-6 pt-48 pb-32 space-y-32">
+        <section class="text-center">
+            <div class="inline-block px-4 py-1 border border-slate-800 rounded-full text-slate-500 text-[10px] font-mono mb-6 uppercase tracking-widest">23FE10CSE00457 &amp; 23FE10CSE00459</div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-8 uppercase leading-tight"><span class="gradient-text uppercase">Inter-Subject Variability in EEG-Based Stress Detection: A Machine Learning Perspective</span></h1>
+            <p class="text-slate-400 max-w-2xl mx-auto italic text-lg leading-relaxed border-l-2 border-blue-500/30 pl-6 text-left">"Can classical ML models generalize EEG stress patterns across unseen subjects, and what explains the performance ceiling under subject-independent validation?"</p>
+        </section>
+        <section id="problem" class="grid md:grid-cols-2 gap-12 items-stretch">
+            <div class="glass p-10 rounded-[2.5rem] flex flex-col justify-center border-l-4 border-blue-600">
+                <h2 class="text-3xl font-extrabold mb-6">Problem Statement</h2>
+                <p class="text-slate-400 leading-relaxed text-justify">EEG-based stress detection has demonstrated high classification performance under controlled conditions, but reliable cross-subject generalization remains largely problematic. Subject-dependent validation inflates accuracy by allowing models to memorize individual brain patterns. This work systematically evaluates classical ML under both SD and SI paradigms to quantify the generalization ceiling of feature-engineered approaches on the SAM-40 dataset.</p>
+            </div>
+            <div class="space-y-6">
+                <div class="glass p-7 rounded-3xl border-r-4 border-blue-500/50">
+                    <h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-3">Literature Review</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Al-Shargie et al. (2017): EEG-fNIRS fusion for stress. Subhani et al. (2017): Ensemble classifiers for multi-level stress. Li et al. (2021): Dilated FCN for EEG emotion. Pandey et al. (2025): Graph-Transformer for cognitive workload. Nearly all SAM-40 benchmarks report subject-dependent results only (98-99%+), concealing the cross-subject generalization problem.</p>
+                </div>
+                <div class="glass p-7 rounded-3xl border-r-4 border-purple-500/50">
+                    <h3 class="text-purple-400 font-bold text-xs uppercase tracking-widest mb-3">Research Gap</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">The generalization ceiling of classical ML under subject-independent validation has never been measured on SAM-40. Without this ceiling, one cannot determine whether incremental improvements are worthwhile, or whether the field must shift entirely to representation learning paradigms.</p>
+                </div>
+            </div>
+        </section>
+        <section id="methodology" class="space-y-12">
+            <h2 class="text-4xl font-black text-center uppercase tracking-tight">System <span class="text-blue-500">Methodology</span></h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="glass p-6 rounded-3xl text-center">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-4"><span class="text-blue-400 font-black text-lg">1</span></div>
+                    <h3 class="font-bold mb-2 uppercase text-[10px] tracking-widest text-blue-300">Dataset</h3>
+                    <p class="text-sm text-slate-500">SAM-40: 40 subjects, 14 channels (Emotiv EPOC+), 128 Hz, 4 cognitive tasks, 480 EEG segments</p>
+                </div>
+                <div class="glass p-6 rounded-3xl text-center">
+                    <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto mb-4"><span class="text-purple-400 font-black text-lg">2</span></div>
+                    <h3 class="font-bold mb-2 uppercase text-[10px] tracking-widest text-purple-300">Preprocessing</h3>
+                    <p class="text-sm text-slate-500">Raw EEG, standardized pipeline: Savitzky-Golay filtering, Daubechies-2 wavelet thresholding</p>
+                </div>
+                <div class="glass p-6 rounded-3xl text-center">
+                    <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4"><span class="text-green-400 font-black text-lg">3</span></div>
+                    <h3 class="font-bold mb-2 uppercase text-[10px] tracking-widest text-green-300">Features</h3>
+                    <p class="text-sm text-slate-500">Mean, Variance, Energy, RMS, Entropy, Kurtosis, Skewness, MAD, Peak-to-Peak, Std (top 10 = ~80% importance)</p>
+                </div>
+                <div class="glass p-6 rounded-3xl text-center">
+                    <div class="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center mx-auto mb-4"><span class="text-orange-400 font-black text-lg">4</span></div>
+                    <h3 class="font-bold mb-2 uppercase text-[10px] tracking-widest text-orange-300">Evaluation</h3>
+                    <p class="text-sm text-slate-500">7 baselines + 3 ensembles. Dual validation: SD (StratifiedKFold) + SI (GroupKFold). Statistical tests.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-3xl text-center">
+                    <i class="fas fa-brain text-blue-500 text-3xl mb-4"></i>
+                    <h3 class="font-bold mb-2 uppercase text-xs tracking-widest">7 Baseline Models</h3>
+                    <p class="text-sm text-slate-500">KNN (k=5), Random Forest (100), XGBoost, CatBoost, AdaBoost, Linear SVC, Logistic Regression</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center">
+                    <i class="fas fa-layer-group text-purple-500 text-3xl mb-4"></i>
+                    <h3 class="font-bold mb-2 uppercase text-xs tracking-widest">3 Ensemble Methods</h3>
+                    <p class="text-sm text-slate-500">Soft Voting (probabilistic), Bagging (bootstrap sampling), Stacking (meta-learner: Logistic Regression)</p>
+                </div>
+                <div class="glass p-8 rounded-3xl text-center">
+                    <i class="fas fa-chart-bar text-green-500 text-3xl mb-4"></i>
+                    <h3 class="font-bold mb-2 uppercase text-xs tracking-widest">Statistical Validation</h3>
+                    <p class="text-sm text-slate-500">McNemar (Bonferroni), Friedman test, 10K Bootstrap CIs, Q-statistic diversity, Cohen's d effect sizes</p>
+                </div>
+            </div>
+        </section>
+        <section id="results" class="glass p-12 rounded-[3.5rem] border-t-4 border-blue-500 space-y-12">
+            <h2 class="text-3xl font-black text-center uppercase tracking-tight">Results &amp; <span class="text-blue-500">Analysis</span></h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="h-80"><canvas id="sdChart"></canvas></div>
+                <div class="h-80"><canvas id="compChart"></canvas></div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="stat-card p-6 rounded-2xl bg-white/5 text-center border border-white/10"><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest block mb-2">Best SD</span><span class="text-blue-400 font-mono font-black text-4xl">97.39%</span><span class="text-slate-600 text-xs block mt-1">KNN</span></div>
+                <div class="stat-card p-6 rounded-2xl bg-white/5 text-center border border-white/10"><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest block mb-2">Best SI</span><span class="text-purple-400 font-mono font-black text-4xl">55.29%</span><span class="text-slate-600 text-xs block mt-1">AdaBoost</span></div>
+                <div class="stat-card p-6 rounded-2xl bg-white/5 text-center border border-white/10"><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest block mb-2">Gap</span><span class="text-orange-400 font-mono font-black text-4xl">42.1pp</span><span class="text-slate-600 text-xs block mt-1">SD vs SI</span></div>
+                <div class="stat-card p-6 rounded-2xl bg-white/5 text-center border border-white/10"><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest block mb-2">SI Variance</span><span class="text-red-400 font-mono font-black text-4xl">6.8x</span><span class="text-slate-600 text-xs block mt-1">vs SD</span></div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-slate-300 mb-4 uppercase tracking-wide text-center">Table 1: Baseline Performance (SD &amp; SI)</h3>
+                <div class="overflow-x-auto"><table class="rt"><thead><tr><th class="text-left">Model</th><th>SD-Arith</th><th>SD-Mirror</th><th>SD-Stroop</th><th>SD-Avg</th><th>SI-Arith</th><th>SI-Mirror</th><th>SI-Stroop</th><th>SI-Avg</th></tr></thead><tbody>
+                    <tr class="hl"><td class="mn">KNN</td><td>97.30</td><td>97.31</td><td>97.56</td><td class="best">97.39</td><td>44.83</td><td>47.78</td><td>49.65</td><td>47.42</td></tr>
+                    <tr><td class="mn">Random Forest</td><td>93.52</td><td>94.40</td><td>90.60</td><td>92.84</td><td>46.12</td><td>49.62</td><td>53.36</td><td>49.70</td></tr>
+                    <tr><td class="mn">XGBoost</td><td>75.34</td><td>75.11</td><td>77.32</td><td>75.92</td><td>48.07</td><td>51.94</td><td>54.39</td><td>51.47</td></tr>
+                    <tr><td class="mn">CatBoost</td><td>71.71</td><td>78.19</td><td>73.95</td><td>74.62</td><td>48.81</td><td>52.37</td><td>56.20</td><td>52.46</td></tr>
+                    <tr class="hl"><td class="mn">AdaBoost</td><td>63.67</td><td>63.83</td><td>63.80</td><td>63.77</td><td>54.07</td><td>53.35</td><td>58.44</td><td class="best">55.29</td></tr>
+                    <tr><td class="mn">Linear SVC</td><td>61.99</td><td>59.81</td><td>62.34</td><td>61.38</td><td>46.81</td><td>50.94</td><td>53.78</td><td>50.51</td></tr>
+                    <tr><td class="mn">Logistic Reg</td><td>61.86</td><td>59.67</td><td>62.33</td><td>61.29</td><td>46.50</td><td>50.73</td><td>53.17</td><td>50.13</td></tr>
+                </tbody></table></div>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-slate-300 mb-4 uppercase tracking-wide text-center">Table 2: Ensemble Method Performance</h3>
+                <div class="overflow-x-auto"><table class="rt"><thead><tr><th class="text-left">Method</th><th>Val</th><th>Arith</th><th>Mirror</th><th>Stroop</th><th>Avg</th></tr></thead><tbody>
+                    <tr><td class="mn">Voting</td><td>SD</td><td>76.01</td><td>76.58</td><td>78.88</td><td>77.16</td></tr>
+                    <tr><td class="mn">Voting</td><td>SI</td><td>46.67</td><td>50.70</td><td>53.87</td><td>50.41</td></tr>
+                    <tr><td class="mn">Bagging</td><td>SD</td><td>61.11</td><td>62.65</td><td>65.68</td><td>63.15</td></tr>
+                    <tr class="hl"><td class="mn">Bagging</td><td>SI</td><td>50.68</td><td>52.92</td><td>57.42</td><td class="best">53.67</td></tr>
+                    <tr><td class="mn">Stacking</td><td>SD</td><td>80.06</td><td>80.14</td><td>83.56</td><td>81.25</td></tr>
+                    <tr><td class="mn">Stacking</td><td>SI</td><td>46.05</td><td>50.13</td><td>52.92</td><td>49.70</td></tr>
+                </tbody></table></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-3xl"><h3 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wide text-center">Baseline vs Ensemble</h3><table class="rt"><thead><tr><th class="text-left">Val</th><th>Best Baseline</th><th>Best Ensemble</th><th>Diff</th></tr></thead><tbody><tr><td class="mn">SD</td><td>KNN (97.39%)</td><td>Stacking (81.25%)</td><td class="best">+16.14</td></tr><tr><td class="mn">SI</td><td>AdaBoost (55.29%)</td><td>Bagging (53.67%)</td><td>+1.62</td></tr></tbody></table></div>
+                <div class="glass p-8 rounded-3xl"><h3 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wide text-center">Ensemble Diversity</h3><table class="rt"><thead><tr><th class="text-left">Pair</th><th>Agreement</th><th>Diversity</th></tr></thead><tbody><tr><td class="mn">Ada-Cat</td><td>0.85</td><td>Low</td></tr><tr><td class="mn">Ada-XGB</td><td>0.82</td><td>Low</td></tr><tr><td class="mn">Cat-XGB</td><td>0.88</td><td>Very Low</td></tr><tr><td class="mn">XGB-RF</td><td>0.86</td><td>Low</td></tr></tbody></table></div>
+            </div>
+        </section>
+        <section id="stats" class="space-y-10">
+            <h2 class="text-4xl font-black text-center uppercase tracking-tight">Statistical <span class="text-blue-500">Validation</span></h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-3xl border-l-4 border-green-500"><h3 class="text-green-400 font-bold text-xs uppercase tracking-widest mb-4">Bootstrap 95% CIs (10K iterations)</h3><table class="rt"><thead><tr><th class="text-left">Method</th><th>Val</th><th>Acc</th><th>95% CI</th></tr></thead><tbody><tr><td class="mn">KNN</td><td>SD</td><td class="best">97.39%</td><td>[96.74, 98.22]</td></tr><tr><td class="mn">AdaBoost</td><td>SI</td><td class="best">55.29%</td><td>[49.90, 61.22]</td></tr><tr><td class="mn">Stacking</td><td>SD</td><td>81.25%</td><td>[80.12, 82.50]</td></tr><tr><td class="mn">Bagging</td><td>SI</td><td>53.67%</td><td>[52.50, 55.00]</td></tr></tbody></table></div>
+                <div class="glass p-8 rounded-3xl border-l-4 border-orange-500"><h3 class="text-orange-400 font-bold text-xs uppercase tracking-widest mb-4">Subject Variability</h3><table class="rt"><thead><tr><th class="text-left">Metric</th><th>SD</th><th>SI</th></tr></thead><tbody><tr><td class="mn">Mean Accuracy</td><td>97.39%</td><td>55.29%</td></tr><tr><td class="mn">Variance</td><td>0.0017</td><td>0.0796</td></tr><tr><td class="mn">Std. Deviation</td><td>1.30%</td><td>8.92%</td></tr></tbody></table><p class="text-slate-600 text-xs mt-3 italic">SI variance is 6.8x greater than SD.</p></div>
+            </div>
+        </section>
+        <section class="glass p-10 rounded-[2.5rem] border-l-4 border-green-500">
+            <h2 class="text-3xl font-extrabold mb-6">Outcome</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div><h3 class="text-green-400 font-bold text-xs uppercase tracking-widest mb-3">Achieved</h3><p class="text-slate-400 leading-relaxed text-sm">Research paper submitted to international conference (Springer LNCS). Complete ML pipeline: 7 baselines + 3 ensemble methods, 3 binary tasks, dual validation, comprehensive statistical analysis including McNemar, Friedman, Bootstrap CIs, Q-statistics.</p></div>
+                <div><h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-3">Future Work</h3><p class="text-slate-400 leading-relaxed text-sm">Deep representation learning (1D-CNN, LSTM, Transformers) to address feature-space limitations. Hybrid calibration: subject-independent baselines with fast subject-specific adaptation. Cross-dataset validation on DEAP/DREAMER.</p></div>
+            </div>
+        </section>
+        <section id="team" class="text-center pt-10 border-t border-slate-900">
+            <h2 class="text-[10px] font-black text-slate-600 uppercase tracking-[0.5em] mb-12">Academic Credits</h2>
+            <div class="flex flex-wrap justify-center gap-10">
+                <div class="glass px-12 py-8 rounded-[2rem] border-b-4 border-blue-600"><p class="text-[9px] font-bold text-blue-500 mb-2 uppercase tracking-widest">Project Guide</p><p class="font-black text-xl text-slate-100">Dr. Akshay Jadhav</p></div>
+                <div class="glass px-12 py-8 rounded-[2rem] border-b-4 border-slate-700"><p class="text-[9px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Team Member 1</p><p class="font-black text-xl text-slate-100">Prakriti Sharma</p><p class="text-[10px] text-slate-500 mt-1">23FE10CSE00459</p></div>
+                <div class="glass px-12 py-8 rounded-[2rem] border-b-4 border-slate-700"><p class="text-[9px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Team Member 2</p><p class="font-black text-xl text-slate-100">Aaditya Upadhyay</p><p class="text-[10px] text-slate-500 mt-1">23FE10CSE00457</p></div>
+            </div>
+        </section>
+    </main>
+    <footer class="py-12 text-center bg-black/40 border-t border-slate-900">
+        <p class="text-slate-600 text-[10px] font-bold tracking-[0.3em] uppercase mb-2">Manipal University Jaipur</p>
+        <p class="text-slate-500 text-[9px] font-medium tracking-[0.2em] uppercase opacity-50">Department of Computer Science &amp; Engineering &bull; 2026</p>
+    </footer>
+    <script>
+        let sec=0,timer=null;
+        function startTimer(){timer=setInterval(()=>{sec++;let m=Math.floor(sec/60),s=sec%60;document.getElementById('displayTime').innerText=`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;if(sec>=480&&sec<600){document.getElementById('timerContainer').classList.add('timer-warning');document.getElementById('timerIcon').classList.replace('fa-hourglass-start','fa-hourglass-half')}else if(sec>=600){clearInterval(timer);document.getElementById('timerContainer').classList.replace('timer-warning','timer-stop');document.getElementById('displayTime').innerText="10:00";document.getElementById('timerIcon').classList.replace('fa-hourglass-half','fa-hourglass-end')}},1000)}
+        const sdCtx=document.getElementById('sdChart').getContext('2d');
+        new Chart(sdCtx,{type:'bar',data:{labels:['KNN','RF','XGB','CatB','Ada','SVC','LR'],datasets:[{label:'Arithmetic',data:[97.30,93.52,75.34,71.71,63.67,61.99,61.86],backgroundColor:'#3b82f6',borderRadius:4,barThickness:10},{label:'Mirror',data:[97.31,94.40,75.11,78.19,63.83,59.81,59.67],backgroundColor:'#8b5cf6',borderRadius:4,barThickness:10},{label:'Stroop',data:[97.56,90.60,77.32,73.95,63.80,62.34,62.33],backgroundColor:'#06b6d4',borderRadius:4,barThickness:10}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#94a3b8',font:{size:10}}},title:{display:true,text:'Subject-Dependent Accuracy by Task (%)',color:'#e2e8f0',font:{size:12,weight:'bold'}}},scales:{y:{beginAtZero:true,max:100,grid:{color:'#ffffff08'},ticks:{color:'#475569'}},x:{grid:{display:false},ticks:{color:'#475569',font:{size:9}}}}}});
+        const compCtx=document.getElementById('compChart').getContext('2d');
+        new Chart(compCtx,{type:'bar',data:{labels:['Subject-Dependent','Subject-Independent'],datasets:[{label:'Best Baseline',data:[97.39,55.29],backgroundColor:'#22c55e',borderRadius:10,barThickness:40},{label:'Voting',data:[77.16,50.41],backgroundColor:'#f97316',borderRadius:10,barThickness:40},{label:'Bagging',data:[63.15,53.67],backgroundColor:'#eab308',borderRadius:10,barThickness:40},{label:'Stacking',data:[81.25,49.70],backgroundColor:'#ef4444',borderRadius:10,barThickness:40}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#94a3b8',font:{size:10}}},title:{display:true,text:'Baseline vs Ensemble (All Ensembles Underperform)',color:'#e2e8f0',font:{size:12,weight:'bold'}}},scales:{y:{beginAtZero:true,max:100,grid:{color:'#ffffff08'},ticks:{color:'#475569'}},x:{grid:{display:false},ticks:{color:'#475569'}}}}});
+    </script>
+</body>
+</html>
