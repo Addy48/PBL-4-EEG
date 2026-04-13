@@ -3,7 +3,7 @@
 **Course:** Project Based Learning 4, VI Semester, Jan–May 2026
 **Department:** Computer Science and Engineering, Manipal University Jaipur
 **Guide:** Dr. Akshay Jadhav
-**Student:** Aaditya Upadhyay (23FE10CSE00457)
+**Student:** Aaditya Upadhyay (23FE10CSE00457) , Prakriti Sharma (23FE10CSE00459)
 
 ## Project
 
