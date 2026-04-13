@@ -1,0 +1,5 @@
+experiment,f1_delta
+node_dropout,0.6683958624108199
+sensor_failure,0.05975785949139908
+missing_values,0.025008836543227966
+sensor_noise,0.011901726397125398
