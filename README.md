@@ -1,56 +1,37 @@
-# Inter-Subject Variability in EEG-Based Stress Detection
+# PBL-4 — Distributed CPS Fault Prediction Framework
 
-**A Machine Learning Perspective**
+**Course:** Project Based Learning 4, VI Semester, Jan–May 2026
+**Department:** Computer Science and Engineering, Manipal University Jaipur
+**Guide:** Dr. Akshay Jadhav
+**Student:** Aaditya Upadhyay (23FE10CSE00457)
 
-## Overview
+## Project
 
-This project evaluates classical machine learning models for EEG-based stress classification under both subject-dependent and subject-independent validation using the SAM-40 dataset. The study quantifies the generalization ceiling of feature-engineered approaches.
-
-**Paper Status:** Submitted to international conference (Springer LNCS). Under review.
-
-## Dataset
-
-- **SAM-40** (Ghosh et al., 2022)
-- 40 subjects, 14 EEG channels (Emotiv EPOC+), 128 Hz
-- 4 tasks: Relaxation, Arithmetic, Stroop, Mirror Image Recognition
-- Binary classification: Relax vs each cognitive task
+**Title:** A Distributed Lightweight Framework for Robust, Energy-Efficient, and Early Fault Prediction in Cyber-Physical Systems
+**Dataset:** NASA C-MAPSS FD001 — 100 turbofan engines, 14 sensors, 20,631 timesteps
+**Paper Status:** In active development. Targeting IEEE ICPS 2026.
 
 ## Key Results
 
-| Validation | Best Model | Avg Accuracy |
-|---|---|---|
-| Subject-Dependent | KNN | 97.39% |
-| Subject-Independent | AdaBoost | 55.29% |
+| Metric | Value |
+|--------|-------|
+| Best centralized F1 (validation) | 0.864 |
+| Distributed F1 — test partition | 0.839 |
+| Centralized F1 — test partition | 0.841 |
+| Wilcoxon p-value | 0.524 |
+| Distributed F1 at 30% node dropout | 0.856 |
+| Centralized F1 at 30% node dropout | 0.000 |
+| Mean detection delay | -2.5 cycles |
+| FD003 cross-dataset F1 | 0.753 |
 
-**Generalization Gap:** 42.1 percentage points
+## Pipeline
 
-## Project Structure
+Phase 1 through Phase 10 notebooks are in cps/notebooks/. Results in cps/results/.
 
-```
-├── index.html                      # Project website (HTML)
-├── src/
-│   ├── preprocessing.py            # EEG signal preprocessing
-│   ├── feature_extraction.py       # Statistical feature extraction
-│   └── eeg_classification.py       # Classification pipeline 
-├── results/
-│   └── summary.csv                 #  results
-├── requirements.txt
-└── README.md
-```
+## Dataset
 
-## Methodology
+NASA C-MAPSS FD001 from the NASA Prognostics Data Repository. Not included here per licensing terms.
 
-1. **Preprocessing:** Savitzky-Golay filtering, Daubechies-2 wavelet denoising
-2. **Features:** Statistical (Mean, Variance, Energy, RMS, Entropy, Kurtosis, Skewness, MAD, Peak-to-Peak, Std)
-3. **Models:** KNN, Random Forest, XGBoost, CatBoost, AdaBoost, Linear SVC, Logistic Regression
-4. **Validation:** Subject-Dependent (StratifiedKFold) + Subject-Independent (GroupKFold)
+## Requirements
 
-> Full ensemble analysis and statistical validation code withheld (paper under review).
-
-## Team
-
-- **Prakriti Sharma** (23FE10CSE00459)
-- **Aaditya Upadhyay** (23FE10CSE00457)
-- **Guide:** Dr. Akshay Jadhav
-
-School of Computer Science and Engineering, Manipal University Jaipur
+pandas>=2.0, numpy>=1.24, scikit-learn>=1.3, xgboost>=1.7, scipy>=1.11, matplotlib>=3.8, seaborn>=0.13

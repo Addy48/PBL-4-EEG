@@ -1,9 +1,0 @@
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
-*.joblib
-*.pkl
-data/
-notebooks/
-.env
-.DS_Store
